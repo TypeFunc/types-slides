@@ -2,7 +2,6 @@
 lectures/slides by William DeMeo [&lt;williamdemeo@gmail.com&gt;](mailto:williamdemeo@gmail.com)  
 UH MFC Bootcamp, 29--31 March 2017  
 
-
 # Part 0: What is Type Theory?
 
 ---
@@ -41,38 +40,37 @@ www.cs.nott.ac.uk/~vxc/publications/Abstraction_Computation.pdf
 
 ## Type Theory: the basic idea
 
-+ organize mathematical objects into *types* instead of *sets*; 
-  for example, the *type* $\mathbb N$ of natural numbers, or 
-  the *type* $\mathbb R$ of reals
++ organize mathematical objects into <a style="color:#e7ad52">**Types**</a> instead of 
+  <a style="color:green">**Sets**</a>   
+  eg, the <a style="color:#e7ad52">**Type** $\mathbb N$</a> of natural numbers,
+  the <a style="color:#e7ad52">**Type** $\mathbb R$</a> of reals, etc
 
-+ to say that $\pi$ is real, write $\pi : \mathbb R$
++ to say that $\pi$ is real, write <a style="color:#e7ad52">$\pi : \mathbb R$</a>
 
----
++ *Wait a minute!* <a style="color:#e7ad52">Type Theory</a> is merely <a style="color:green">Set Theory</a> 
+  with the word   
+  <a style="color:green">Set</a> replaced by <a style="color:#e7ad52">Type</a> and the 
+  symbol <a style="color:green">$\in$</a> replaced by <a style="color:#e7ad52">$:$</a> ??<br><br>
+  **WTF?!**
 
-<!-- .slide: data-background="img/confused.gif" data-background-size="contain" data-state="img-right" -->
++ Of course not.  In <a style="color:#e7ad52">Type Theory</a> we can only make objects of a certain 
+  type---*the type comes first*---and then we can construct elements of that type.
 
-*What??* Type Theory is merely Set Theory with the word
-  "set" by "type" and the symbol "$\in$" by "$:$" ??
-
-+ No!  In **TT** we can only make objects of a certain type, 
-  that is the type is first and then we can construct the
-  element.
-
-+ In **ST** all objects are there already and we can organize 
-  them into different sets; we might have an object $x$ 
-  and ask wether this object is a nat ($x\in \mathbb N$) or a real
-  ($x \in \mathbb R$).
++ In <a style="color:green">Set Theory</a> all objects are there already and we can organize 
+  them into different sets; we might have an object $x$ and ask wether this object is a 
+  **nat** ($x\in \mathbb N$) or a **real** ($x \in \mathbb R$).
 
 ---
 
 ## Type Theory vs. Set Theory
 
-+ In TT $x \colon \mathbb N$ means
-  $x$ is a natural number "by birth" and we can ask 
-  wether $x$ is a real number.
++ In <a style="color:#e7ad52">Type Theory</a> we think of <a style="color:#e7ad52">$x : \mathbb N$</a> as
+  meaning that $x$ is a natural number "by birth" and we can ask whether $x$ is a real number.
  
-+ We say $x \colon \mathbb N$ is a *judgement* while 
-  $x \in \mathbb N$ is a *proposition*
++ We say <a style="color:#e7ad52">$x : \mathbb N$</a> is a **judgement** while 
+  <a style="color:green">$x \in \mathbb N$</a> is a **proposition**
+
++ We will revisit these ideas again and again, and they will become clearer once we gain some experience with Type Theory.
 
 ---
 
@@ -80,7 +78,7 @@ www.cs.nott.ac.uk/~vxc/publications/Abstraction_Computation.pdf
 
 ---
 
-# Part 1: Homily on Constructive Math 
+# Part 1: Constructive Math 
 
 ---
 
@@ -147,40 +145,34 @@ be disputed on similar grounds.  But...
 
 ---
 
-*Classical* proofs cannot always be executed,   
++ *Classical* proofs cannot always be executed,   
 but *constructive* proofs can, in a sense.
 
-Constructive proofs give algorithms to  
++ Constructive proofs give algorithms to  
 compute all objects claimed to exist and  
 decide all properties claimed decidable.
-<!-- .element: class="fragment fade-left" -->
-
-<p class="fragment fade-left">
 <!-- ------ DVF ------------ -->
-<!-- .slide: data-background="img/Darth-Vader-faith.jpg" data-background-size="500px" data-state="img-right" -->
-It may seem strange to think of a proof  
+<div class="fragment fade-left">
+<img src="img/Darth-Vader-faith.jpg" alt="Darth Vader faith" style="width: 300px;float: right"/>
+</div>
++ It may seem strange to think of a proof  
 as a program, even stranger that there  
 can be different proofs of the same  
 result that differ in "efficiency." 
-</p>
 
 ---
 
 ### A Change of Tack
 
-Instead of discussing ways to formalize math, let's consider 
-ways to extend programming languages, e.g. richer data types, 
-new paradigms/techniques. 
-<!-- .element: class="fragment fade-left" -->
++ Instead of discussing ways to formalize math, let's consider
+ways to extend programming languages, e.g. richer data types,
+new paradigms/techniques.
 
-We will consider a high level functional language and see
-how it makes programming easier;   
-some classical algorithms become easy or obvious;   
++ We will consider a high level functional language and see
+how it makes programming easier; some classical algorithms become easy or obvious;
 previously inconceivable programs are possible.
-<!-- .element: class="fragment fade-left" -->
 
-We don't mention logic and math at first.
-<!-- .element: class="fragment fade-left" -->
++ We don't mention logic and math at first.
 
 ---
 
@@ -203,11 +195,11 @@ by virtue of the their inherent logical content!</p>
 
 ---
 
-## Part 2: Type Theory vs Set Theory
+# Part 2: Type Theory vs Set Theory
 
 ---
 
-### Sets vs Types
+## Sets vs Types
 
 * In <a style="color:green">Set Theory</a>, 
 	$3 \in \mathbb N$ means  
@@ -227,7 +219,7 @@ by virtue of the their inherent logical content!</p>
 
 ---
 
-### Sets vs Types
+## Sets vs Types
 
 * While  <a style="color:green">$3 \in \mathbb N$</a> is a proposition,  <a style="color:#e7ad52">$3 : \mathbb N$</a> is a *judgment*; ie a piece of static information.
   
@@ -277,7 +269,7 @@ by virtue of the their inherent logical content!</p>
   
 ---
 
-### Univalence Axiom 
+## Univalence Axiom 
 
 Since we can't talk about intensional aspects (implementation details), 
 we can identify objects which have the same extensional behavior. 
@@ -286,7 +278,7 @@ which identifies **extensionally equivalent** types.
 
 ---
 
-### Truth Vs. Evidence
+## Truth Vs. Evidence
 Another important difference between Set Theory and Type Theory is the
 way propositions are treated: Set Theory is formulated using predicate logic
 which relies on the notion of **truth**. Type Theory is self-contained and doesn't
@@ -294,7 +286,7 @@ refer to **truth**, but rather **evidence**.
 
 ---
 
-### Curry-Howard Correspondence
+## Curry-Howard Correspondence
 
 Using the <a style="color:#e7ad52">propositions-as-types</a> translation 
 we can assign to any proposition $P$ the type of its evidence $[[P]]$ 
@@ -322,11 +314,11 @@ disjoint union +, product ×, and → (function) types are familiar
 
 ---
 
-## Part 3: Non-dependent types
+# Part 3: Non-dependent types
 
 ---
 
-### Universes
+## Universes
 
 + To get started we have to say what a *type* is. We could introduce another judgement, but
   instead we'll use **universes.** 
@@ -369,7 +361,7 @@ disjoint union +, product ×, and → (function) types are familiar
 
 ---
 
-### Functions
+## Functions
 
 + In <a style="color:green">Set Theory</a> **function** is a derived concept 
   (a subset of the cartesian product with certain properties)
@@ -395,7 +387,7 @@ disjoint union +, product ×, and → (function) types are familiar
 
 ---
 
-### A word about syntax 
+## A word about syntax 
 
 - In Type Theory, as in functional programming, we usually
 try to save parentheses and write $f x :\equiv x + 3$ 
@@ -450,7 +442,7 @@ using the propositions as types translation.
 
 ---
 
-### Solution
+## Solution
 
 Define $f : P × (Q + R) \to (P × Q) + (P × R)$ as follows:
 
@@ -468,7 +460,7 @@ The tuple $(f, g)$ is an element of the desired type!
 
 ---
 
-### Exercise 1 
+## Exercise 1 
 
 Using the propositions as types translation, try to prove the following tautologies
 (where P, Q, R : Type are propositions represented as types)
@@ -481,7 +473,7 @@ Using the propositions as types translation, try to prove the following tautolog
 
 ---
 
-### Exercise 2
+## Exercise 2
 
 **Law of Excluded Middle** $(\forall P) (P \vee \neg P)$ 
 is not provable in TT
@@ -530,7 +522,7 @@ analysis over elements of $A + B$.
 
 ---
 
-### Exercise 3 
+## Exercise 3 
 
 Show that using the **recursor** $R^\times$ we can define the projections:
 
@@ -546,7 +538,7 @@ Vice versa: can the recursor be defined using only the projections?
 
 ---
 
-### The unit and empty types
+## The unit and empty types
 
 + Denote by $\mathbf{1}$ the empty product, called the <a style="color:#e7ad52">*unit type*</a>
 
@@ -566,7 +558,7 @@ $R^\mathbf{0} : \mathbf{0} → C$ (no defining eqn since it won't be applied)
 
 ---
 
-### Exercise 4 
+## Exercise 4 
 
 Construct solutions to exercises 1 and 2 using only the eliminators.
 
@@ -592,7 +584,7 @@ This use of equality will be justified later when we introduce the
 
 ---
 
-### Function Types are Exponentials
+## Function Types are Exponentials
 
 The arithmetic interpretation of types also extends to the function type,
 which corresponds to exponentiation. Indeed, in Mathematics the function type
@@ -605,11 +597,11 @@ $\underline{m^n} = \underline{n} \to \underline{m}$.
 
 ---
 
-## Part 4: Dependent Types
+# Part 4: Dependent Types
 
 ---
 
-### What are Dependent Types?
+## What are Dependent Types?
 
 You are probably familiar with so-called 
 **polymorphic** or **generic types**. These are types that are indexed by 
