@@ -12,7 +12,7 @@ output:
     css: types.css
     incremental: true
     keep_md: true
-
+    highlight: pygments
 ---
 
 # Part 0: What is Type Theory?
@@ -616,50 +616,211 @@ $\underline{m^n} = \underline{n} \to \underline{m}$.
 
 ## What are Dependent Types?
 
-You are probably familiar with so-called 
-**polymorphic** or **generic types**. These are types that are indexed by 
-other types.
+<p class="fragment fade-left">
+You may be familiar with <a style="color:#e7ad52">polymorphic types</a> (aka generics)  
+These are types that are indexed by other types  
+</p>
 
-For example, `ArrayList<Integer>` (Java), or `List[(String, Int)]` (Scala)
+<div class="fragment fade-left">
+<a style="color:olivedrab">**Example**</a>
+```{r, engine = 'java', eval = FALSE}
+Array<Integer>      // Java
 
-A <a style="color:#e7ad52">**dependent type**</a> is a type 
-that is indexed by an *element* of another type. 
+List[(String, Int)] // Scala
+```
+</div>
 
-**Examples:**
+<p class="fragment fade-left">
+A <a style="color:#e7ad52">*dependent type*</a> is
+indexed by an <u>*element*</u> of another type
+</p>
 
-1. The type of $n$-tuples is $A^n : \mathsf{Type}$  
-has elements $(a_0, a_1, \dots, a_{n-1}) : A^n$ where $a_i : A$
+<div class="fragment fade-left">
+<a style="color:olivedrab">**Examples**</a>
 
-2. The finite type $\underline{n} : \mathsf{Type}$  
-has elements $0_n, 1_n, \dots, (n - 1)_n : \underline{n}$
+<a style="color:#e7ad52">$A^n : \mathsf{Type}$</a>, the *type of $n$-tuples* whose inhabitants are $(a_0, a_1, \dots, a_{n-1}) : A^n$ where $a_i : A$
 
----
-
-Notice that tuples are indexed by both 
-$\underline{n} : \mathsf{Type}$ *and* $A : \mathsf{Type}$, and we can
-use a function into $\mathsf{Type} to represent such a 
-<a style="color:#e7ad52">*dependent type*</a>
-
-Vec : Type → $\mathbb N$ → Type
-
-Vec A n :≡ A n
-
-Fin : $\mathbb N$ → Type
-
-Fin n :≡ n
+<a style="color:#e7ad52">$\underline{n} : \mathsf{Type}$</a>, the *finite type* whose inhabitants are $0_n, 1_n, \dots, (n - 1)_n : \underline{n}$
+</div>
 
 ---
 
-In the propositions as types view, **dependent types** are used to represent 
-predicates, eg, $\mathsf{Prime} : \mathbb N \to \mathsf{Type}$ assigns to any 
-natural number $n : \mathbb N$ the type of
-evidence $\mathsf{Prime} n : \mathsf{Type}$ that $n$ is a prime number. 
+## What are Dependent Types?
 
-(This does not need to be inhabited, eg $\mathsf{Prime} 4$ is empty.)
+The **$n$-tuple type**
+<a style="color:#e7ad52">$A^n : \mathsf{Type}$</a>
+is indexed by \underline{*two*} parameters
 
-Using **currying** we can use this also to represent relations, eg, 
-$\leq : \mathbb N \to \mathbb N \to \mathsf{Type}$, $m \leq n : \mathsf{Type}$ 
-is the type of evidence that $m$ is less or equal to $n$.
+$$\underline{n} : \mathsf{Type} \quad \text{ and } \quad A : \mathsf{Type}$$  
+
+<div class="fragment fade-left">
+In general, a <a style="color:#e7ad52">*dependent type*</a> is obtained by applying a 
+function with codomain $\mathsf{Type}$.
+</div>
+
+<div class="fragment fade-left">
+<a style="color:olivedrab">**Example 1**</a>
+
+$\mathsf{Vec} : \mathsf{Type} \to \mathbb{N} \to \mathsf{Type}$
+
+$\mathsf{Vec}\; A\; n :\equiv A^n$
+</div>
+
+<div class="fragment fade-left">
+<a style="color:olivedrab">**Example 2**</a>
+
+$\mathsf{Fin} : \mathbb{N} \to \mathsf{Type}$
+
+$\mathsf{Fin}\; n :\equiv \underline{n}$
+</div>
 
 ---
+
+## Curry-Howard again
+
+In the *propositions-as-types* view, <a style="color:#e7ad52">**dependent types**</a> 
+are used to encode predicates.
+
+<div class="fragment fade-left">
+<a style="color:olivedrab">**Example**</a>  
+<a style="color:#e7ad52">$\mathsf{Prime} : \mathbb N \to \mathsf{Type}$</a>  
+This takes <a style="color:#e7ad52">$n : \mathbb N$</a> as input and outputs 
+<a style="color:#e7ad52">$\mathsf{Prime}\; n : \mathsf{Type}$</a>,  
+the type representing *evidence that $n$ is a prime number*.
+</div>
+
+<div class="fragment fade-left">
+If <a style="color:#e7ad52">$\varphi$</a> is a proof that <a style="color:#e7ad52">$n : \mathbb N$</a> is prime, then
+<a style="color:#e7ad52">$\varphi : \mathsf{Prime}\; n$</a>.</div>
+<!-- and say "<a style="color:#e7ad52">$\varphi$</a> has type <a style="color:#e7ad52">$\mathsf{Prime}\; n$</a>" -->
+<!-- <a style="color:#e7ad52">$p$</a> has type <a style="color:#e7ad52">$\mathsf{Prime}\; n$</a> and we write -->
+
+<div class="fragment fade-left">
+Of course <a style="color:#e7ad52">$\mathsf{Prime}\; n$</a> could be uninhabited, eg <a style="color:#e7ad52">$\mathsf{Prime}\; 4$</a>.
+</div>
+
+---
+
+## Codifying Relations
+
+By <a style="color:#e7ad52">currying</a> we can also use dependent types to represent **relations**
+
+<a style="color:olivedrab">**Example**</a>
+<a style="color:#e7ad52">$\leq\; : \mathbb N \to \mathbb N \to \mathsf{Type}$</a>  
+<a style="color:#e7ad52">$m \leq n : \mathsf{Type}$</a>,
+the type of *evidence that <a style="color:#e7ad52">$m$</a> is less or equal to <a style="color:#e7ad52">$n$</a>*
+
+<div class="fragment fade-left">
+If <a style="color:#e7ad52">$\varphi$</a> is a proof of
+<a style="color:#e7ad52">$m \leq n$</a>, then 
+<a style="color:#e7ad52">$\varphi : m \leq n$</a>
+</div>
+
+<div class="fragment fade-left">
+<a style="color:olivedrab">**Example**</a> Let 
+<a style="color:#e7ad52">$\mathbf A$</a> be an algebra and 
+<a style="color:#e7ad52">$\theta \in \operatorname{Con} \mathbf A$</a> a congruence
+</div>
+
+<div class="fragment fade-left">
+<a style="color:#e7ad52">$\theta : A \to A \to \mathsf{Type}$</a> takes inputs
+<a style="color:#e7ad52">$a, b : A$</a> and outputs <a style="color:#e7ad52">$a \mathrel{\theta} b : \mathsf{Type}$</a>, 
+the type of *evidence for <a style="color:#e7ad52">$(a,b) \in \theta$</a>*
+</div>
+
+<div class="fragment fade-left">
+If <a style="color:#e7ad52">$\varphi$</a> is a proof of
+<a style="color:#e7ad52">$a \mathrel{\theta} b$</a>, then 
+<a style="color:#e7ad52">$\varphi : a \mathrel{\theta} b$</a>
+</div>
+
+---
+
+## Martin-Lof intensional type theory
+
++ <a style="color:rgb(231,173,82)">Intensional type theory</a> is the brand of type 
+theory used in systems like 
+<a style="color:mediumpurple">Agda</a> and <a style="color:orangered">Coq</a> 
+
++ <a style="color:crimson">NuPrl</a> 
+  is based on extensional type theory  
+
++ This is an important distinction and it centers around different notions of 
+**equality**
+
+---
+
++ In the original formulation by Martin-Lof, there is a judgement called
+*definitional equality*, which is asserted when two terms denote the same value.
+
++ Today, this is most often replaced by a reduction relation.  Two terms are
+called *convertible* when they can be reduced to a common decendant using the
+reduction rules.  If we reduce a term as much as possible, we always obtain
+after a finite number of steps, a unique *normal form* (that 
+cannot be simplified further).  Convertible terms are interchangeable.
+
++ *extensional* versions of type theory, 
+  like <a style="color:crimson">NuPrl</a>,
+  have a stronger notion of **definitional equality**   
+  for example, two functions can be identified if their graphs are the same  
+  
++ However, the price to pay is *undecidability of type checking*
+
+---
+
+## <a style="color:crimson">Extensional Type Theory</a>
+
+<a style="color:mediumpurple">Intensional</a>
+<a style="color:crimson">Extensional</a>
+
++ <a style="color:crimson">ETT</a>
+  does not distinguish between **definitional equality** (computational) 
+  and **propositional equality** (requires proof) 
+  
++ Type checking is **undecidable** in 
+  <a style="color:crimson">ETT</a>  
+  *programs in the theory might not terminate*
+  
++ <a style="color:olivedrab">**Example**</a>
+  In <a style="color:crimson">ETT</a> we can give a type to the **Y-combinator** 
+
++ This does not prevent <a style="color:crimson">ETT</a> from being a basis 
+  for a practical tool, as <a style="color:crimson">NuPRL</a> demonstrates.
+
++ From a practical standpoint, there's no difference between a program which doesn't terminate and a program which takes a million years to terminate
+
+---
+
+## <a style="color:mediumpurple">Intensional Type Theory</a>
+
+<a style="color:mediumpurple">Intensional</a>
+<a style="color:crimson">Extensional</a>
+
++ <a style="color:mediumpurple">ITT</a>
+  has decidable type checking, but the representation of 
+  standard math concepts can be more cumbersome.
+  
++ In <a style="color:mediumpurple">ITT</a>
+  **extensional reasoning** requires using 
+  <a style="color:rgb(231,173,82)">setoids</a> or similar constructions. 
+  
++ There are many common math objects that are hard to work 
+  with and/or can't be represented without this.
+  
++ **Examples:** Integers and rational numbers can be 
+  represented without setoids, but the representations are not
+  easy to work with; Reals cannot be represented without 
+  setoids or something similar.
+
+---
+
+## Homotopy type theory 
+
++ <a style="color:olivedrab">HoTT</a> works on resolving these problems 
+
++ <a style="color:olivedrab">HoTT</a>
+  allows one to define <a style="color:rgb(231,173,82)">higher inductive types</a> 
+  that not only define **first-order constructors** (values or points), but **higher-order 
+  constructors** (equalities between elements--paths), equalities between equalities 
+  (homotopies), ad infinitum.
 
